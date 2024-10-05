@@ -1,0 +1,7 @@
+signup_enter_account_info = //div/div[1]/h2/b;
+signup_account_title = //*[@id="id_gender1"];
+signup_account_password = //*[@id="password"];
+signup_account_dob_data = //*[@id="days"];
+signup_account_dob_month = //*[@id="months"];
+signup_account_dob_year = //*[@id="years"];
+signup_account_newsletter = //*[@id="newsletter"];
