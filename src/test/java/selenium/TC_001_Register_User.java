@@ -1,6 +1,5 @@
 package selenium;
 
-import dev.failsafe.internal.util.Assert;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,17 +16,19 @@ public class TC_001_Register_User {
 
         //start testing the register user test case.
         driver.get("https://automationexercise.com/");
-        String homePageName = driver.findElement(By.xpath("//*[@id=\"header\"]//img")).getText();
-        homePageName.equals("Automation Exercise");
+        String homePageName = driver.findElement(By.xpath("//img[@alt='Website for automation practice']")).getAttribute("alt");
+        assert homePageName.equals("Website for automation practice");
+
+        //verify the text of the homepage.
 
         //click signup button
-        driver.findElement(By.xpath("//*[@id=\"header\"]//ul/li[4]/a")).click();
+        driver.findElement(By.xpath("//a[@href='/login'][contains(text(), 'Signup / Login')]")).click();
         //verify new user signup is visible
         String newUser = driver.findElement(By.xpath("//*[@id=\"form\"]//div[3]/div/h2")).getText();
-        newUser.equals("New User Signup!");
+        assert newUser.equals("New User Signup!");
 
         //Enter name and email address
-        driver.findElement(By.xpath("//input[@data-qa=\"signup-name\"]")).sendKeys("testUser");
+        driver.findElement(By.xpath("//input[@name='name']")).sendKeys("testUser");
         driver.findElement(By.xpath("//input[@data-qa=\"signup-email\"]")).sendKeys("testUser@yopmail.com");
 
         //Click 'Signup' button
@@ -35,10 +36,10 @@ public class TC_001_Register_User {
 
         //Verify that 'ENTER ACCOUNT INFORMATION' is visible
         String enterAccountInfo = "ENTER ACCOUNT INFORMATION";
-        String enterAccountInfoSignUp = driver.findElement(By.xpath("//div/div[1]/h2/b")).getText();
-        enterAccountInfo.equals(enterAccountInfoSignUp);
+        String enterAccountInfoSignUp = driver.findElement(By.xpath("//b[text()=\"Enter Account Information\"]")).getText();
+        assert enterAccountInfo.equals(enterAccountInfoSignUp);
 
-        //Fill details: Title, Name, Email (Non editable), Password, Date of birth
+        //Fill details: Title, Name, Email (Non-editable), Password, Date of birth
 
         //click on title Mr. or Mrs.
         driver.findElement(By.id("id_gender1")).click();
@@ -76,24 +77,24 @@ public class TC_001_Register_User {
 
 
         //Verify that 'ACCOUNT CREATED!' is visible
-        driver.findElement(By.xpath("//*[@id=\"form\"]/div/div/div/h2/b")).getText().equals("ACCOUNT CREATED!");
-        driver.findElement(By.xpath("//*[@id=\"form\"]/div/div/div/p[1]")).getText()
+        assert driver.findElement(By.xpath("//b[text()=\"Account Created!\"]")).getText().equals("ACCOUNT CREATED!");
+        assert driver.findElement(By.xpath("//p[text()=\"Congratulations! Your new account has been successfully created!\"]")).getText()
               .equals("Congratulations! Your new account has been successfully created!");
 
 
         //Click 'Continue' button
-        driver.findElement(By.xpath("//*[@id=\"form\"]/div/div/div/div/a")).click();
+        driver.findElement(By.xpath("//a[@data-qa='continue-button'][contains(text(),Continue)]")).click();
 
         //Verify that 'Logged in as username' is visible
-        driver.findElement(By.xpath("//*[@id=\"header\"]/div/div/div/div[2]/div/ul/li[10]/a")).
+        assert driver.findElement(By.xpath("//*[@id=\"header\"]/div/div/div/div[2]/div/ul/li[10]/a")).
                 getText().equals("Logged in as testUsertestUser");
 
         //Click 'Delete Account' button
-        driver.findElement(By.xpath("//*[@id=\"header\"]/div/div/div/div[2]/div/ul/li[5]/a")).click();
+        driver.findElement(By.xpath("//a[@href='/delete_account']")).click();
 
         //Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
-        driver.findElement(By.xpath("//*[@id=\"form\"]/div/div/div/h2/b")).getText().equals("ACCOUNT DELETED!");
-        driver.findElement(By.xpath("//*[@id=\"form\"]/div/div/div/div/a")).click();
+        assert driver.findElement(By.xpath("//b[text()=\"Account Deleted!\"]")).getText().equals("ACCOUNT DELETED!");
+        driver.findElement(By.xpath("//a[@data-qa='continue-button'][contains(text(),Continue)]")).click();
 
         //driver.close();
         driver.quit();
