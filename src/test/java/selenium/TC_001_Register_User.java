@@ -3,8 +3,11 @@ package selenium;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
@@ -19,12 +22,16 @@ public class TC_001_Register_User {
         String homePageName = driver.findElement(By.xpath("//img[@alt='Website for automation practice']")).getAttribute("alt");
         assert homePageName.equals("Website for automation practice");
 
-        //verify the text of the homepage.
+        //verify the text of the homepage. (inside the carousel)
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement headingOfSite = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".item.active h1")));
+        String AutomationExercise = headingOfSite.getText();
+        assert AutomationExercise.equals("AutomationExercise");
 
         //click signup button
         driver.findElement(By.xpath("//a[@href='/login'][contains(text(), 'Signup / Login')]")).click();
         //verify new user signup is visible
-        String newUser = driver.findElement(By.xpath("//*[@id=\"form\"]//div[3]/div/h2")).getText();
+        String newUser = driver.findElement(By.xpath("//h2[text()=\"New User Signup!\"]")).getText();
         assert newUser.equals("New User Signup!");
 
         //Enter name and email address
