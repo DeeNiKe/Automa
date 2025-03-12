@@ -8,25 +8,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class CartSteps {
 
-    WebDriver driver = new ChromeDriver();
-    String userdir = System.getProperty("user.dir");
+    WebDriver driver = DriverManager.getDriver();
 
     @Given("open browser")
     public void openBrowser() {
         System.out.println("Browser is opened.");
-        System.out.println("Project path is:" +userdir);
-        System.setProperty("webdriver.chrome.driver",userdir+"src\\Drivers\\chromedriver.exe");
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(40,TimeUnit.SECONDS);
     }
 
     @Given("user is on homepage")
     public void user_is_on_homepage() {
-        WebDriverManager.chromedriver().setup();
         driver.get("https://automationexercise.com/");
         String homePageName = driver.findElement(By.xpath("//img[@alt='Website for automation practice']")).getAttribute("alt");
         assert homePageName.equals("Website for automation practice");

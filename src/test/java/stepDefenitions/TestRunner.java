@@ -8,6 +8,6 @@ import org.junit.runner.RunWith;
 @CucumberOptions(features="src/test/java/cucumberBDD",glue={"stepDefenitions"},
 monochrome = true,
 plugin = {"pretty","html:target/HtmlReports"},
-tags = "@TC_011")
+tags = "@TC_012")
 public class TestRunner {
 }
