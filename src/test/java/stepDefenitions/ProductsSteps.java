@@ -8,6 +8,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class ProductsSteps {
 
@@ -26,10 +29,11 @@ public class ProductsSteps {
     }
 
     @When("user hover over {int} and click Add to cart")
-    public void userHoverOverAndClickAddToCart(int productNumber) {
-        productNumber += productNumber;
+    public void userHoverOverAndClickAddToCart(int productNumber) throws InterruptedException {
+        productNumber++;
         WebElement productItem = driver.findElement(By.xpath("//section[2]/div/div/div[2]/div/div["+productNumber+"]"));
         actions.moveToElement(productItem).perform();
+        Thread.sleep(1000);
         driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div/div["+productNumber+"]/div/div[1]/div[2]/div/a"))
                 .click();
     }

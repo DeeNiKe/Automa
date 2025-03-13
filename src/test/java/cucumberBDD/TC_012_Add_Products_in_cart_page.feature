@@ -17,4 +17,5 @@ Given user is on homepage
   And user verify 2 price as "Rs. 400"
   And user verify 1 quantity as 1
   And user verify 2 quantity as 1
+  When user close browser
 
